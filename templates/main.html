@@ -4,12 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/static/styles/style.css">
 </head>
 <body>
-    <ul>
-        {% for m in menu %}
-            <li><a href="{{m.url}}">{{m.title}}</a></li>
-        {% endfor %}
-    </ul>
+    <div class="blur"></div>
+    <div class="container_main">
+        <div class="header">
+            <div class="profile_greeting">Добро пожаловать, {{user}}!</div>
+            <div class="points_block">
+                <div class="profile_points"><h3>Ваши очки: {{yourPoints[0].pointValue}}</h3></div>
+                <div class="leaders_tab">
+                    <h4 class="leaders_heading">Таблица лидеров</h4>
+                    {% for l in leaders %}
+                    <div class="leader">{{l['name']}} - {{l['pointValue']}}
+                        <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M316.9 18C311.6 7 300.4 0 288.1 0s-23.4 7-28.8 18L195 150.3 51.4 171.5c-12 1.8-22 10.2-25.7 21.7s-.7 24.2 7.9 32.7L137.8 329 113.2 474.7c-2 12 3 24.2 12.9 31.3s23 8 33.8 2.3l128.3-68.5 128.3 68.5c10.8 5.7 23.9 4.9 33.8-2.3s14.9-19.3 12.9-31.3L438.5 329 542.7 225.9c8.6-8.5 11.7-21.2 7.9-32.7s-13.7-19.9-25.7-21.7L381.2 150.3 316.9 18z"/></svg>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="main">
+            <div class="tasks">
+                <h2>Задания, доступные на данный момент:</h2>
+                <h2 class="tasks_web_module">WEB</h2>
+                <div class="lineWeb"></div>
+                <div class="tasks_web">
+                    {% for t in tasksWeb %}
+                        <div class="task">
+                            <div class="task_title">{{t['title']}}</div>
+                            <div class="task_difficulty">{{t['difficulty']}}</div>
+                            <div class="extended_task_part">
+                                <div class="task_description">{{t['description']}}</div>
+                                <h3 class="task_link"><a href="">{{t['task']}}</a></h3>
+                                <input name="flag" placeholder="Введите флаг" class="task_flag_input" type="text">
+                                <button type="submit" class="task_flag_submit" onclick="checkFlag({{trueFlag}})">Проверить флаг</button>
+                                <h2 class="trueFlagMsg">Абсолютно верно</h2>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/static/scripts/scriptMain.js"></script>
 </body>
 </html>
