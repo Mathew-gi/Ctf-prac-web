@@ -8,6 +8,28 @@ var flag_submit_input = document.querySelector(".task_flag_input");
 var trueFlagMsg = document.querySelector(".trueFlagMsg");
 var taskLink = document.querySelector(".task_link");
 var taskDescription = document.querySelector(".task_description");
+var leadersTab = document.querySelector(".leaders_tab");
+var trueFlag =document.querySelector(".true_flag");
+var tasksWebExtendedParts = document.getElementsByClassName("extended_task_part_web");
+
+for (var i = 0; i < tasksWebExtendedParts.length; i++) {
+    console.log(tasksWebExtendedParts[i]);
+    var editPoint = false;
+    for (var j = 0; j < tasksWebExtendedParts[i].children.length; j++) {
+        console.log(tasksWebExtendedParts[i].children[j]);
+        if (tasksWebExtendedParts[i].children[j].textContent == "1") {
+            editPoint = true;
+        }
+    }
+    if (editPoint) {
+        for (var j = 0; j < tasksWebExtendedParts[i].children.length; j++) {
+            tasksWebExtendedParts[i].children[j].style = "display: none;";
+        }
+        tasksWebExtendedParts[i].lastElementChild.style = "display: block;";
+    }
+}
+
+
 
 for (var i = 0; i < tasks_difficulties.length; i++) {
     tasks_difficulties[i].className += " " + tasks_difficulties[i].textContent;
@@ -56,12 +78,27 @@ for (var i = 0; i < tasks.length; i++) {
     tasks[i].addEventListener("click", taskClick);
 }
 
-function checkFlag(trueFlag) {
-    if (trueFlag) {
-        flag_submit_button.style = "display: none;";
-        flag_submit_input.style = "display: none;";
-        taskLink.style = "display: none;";
-        taskDescription.style = "display: none;";
-        trueFlagMsg.style = "display: block;";
+function hideLeadersTab() {
+    var leadersTabSubs = this.children;
+    for (var i = 0; i < leadersTabSubs.length; i++) {
+        leadersTabSubs[i].className += " nonExist";
     }
+    this.firstElementChild.className = "leaders_heading";
+    this.firstElementChild.textContent = "Развернуть таблицу";
+}
+
+function showLeadersTab () {
+    var leadersTabSubs = this.children;
+    for (var i = 0; i < leadersTabSubs.length; i++) {
+        leadersTabSubs[i].className = "leader";
+    }
+    this.firstElementChild.className = "leaders_heading";
+    this.firstElementChild.textContent = "Таблица лидеров";
+}
+
+leadersTab.addEventListener("mouseover", hideLeadersTab);
+leadersTab.addEventListener("mouseout", showLeadersTab);
+
+function getLeaders() {
+    
 }

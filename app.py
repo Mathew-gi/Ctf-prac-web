@@ -7,6 +7,8 @@ DATABASE = 'app.db'
 DEBUG = True
 SECRET_KEY = "1234"
 
+tasksSections = ["TasksWeb"]
+
 app = Flask(__name__)
 app.config.from_object(__name__)
 app.config['SECRET_KEY'] = '1234'
@@ -43,11 +45,12 @@ def registration():
       if dbase.checkIfUserExists(request.form["name"]):
         flash("Username exists", category="error")
       else:
-        res = dbase.addUser(request.form["name"], request.form["password"])
+        res = dbase.addUser(request.form["name"], request.form["password"], dbase.createTrueFlags(request.form["name"], tasksSections))
         if not res:
           flash("User registration error", category="error")
         else:
           flash("User regged", category="success")
+          dbase.addUserPoints(request.form["name"])
           return render_template("reg-auth.html", status = "Authorization")
     else:
       flash("malo bukv", category="error")
@@ -82,24 +85,26 @@ def main(user):
   db = get_db()
   dbase = FDataBase(db)
   if 'userLogged' in session:
-    return render_template("main.html", user = user, leaders = dbase.getLeaders(), yourPoints = dbase.getYourPoints(user), tasksWeb = dbase.getTasksWeb())
+    return render_template("main.html", user = user, leaders = dbase.getLeaders(), yourPoints = dbase.getYourPoints(user), tasksWeb = dbase.getTasks("TasksWeb"), trueFlags = dbase.getUser(session['userLogged']))
 
 @app.route("/main", methods = ["POST", "GET"])
 def mainWithoutName():
   db = get_db()
   dbase = FDataBase(db)
-  if dbase.getSolution(request.form["flag"]):
-    trueFlag = True
-    points = dbase.getUserPoints(session['userLogged'])[0]['pointValue'] + 200
-    print(points)
-    dbase.gainPoints(session['userLogged'], points)
-    return render_template("main.html", user = session['userLogged'], leaders = dbase.getLeaders(), yourPoints = dbase.getYourPoints(session['userLogged']), tasksWeb = dbase.getTasksWeb(), trueFlag = json.dumps(trueFlag,  sort_keys=True, default=bool))
+  if dbase.getSolution(request.form["flag"], dbase.get_section(request.form["taskId"], tasksSections)):
+    if not (dbase.checkTrueFlag(session['userLogged'], request.form["taskId"])):
+      points = dbase.getYourPoints(session['userLogged'])[0]['pointValue'] + 100 * dbase.getPointsMultiplier(dbase.get_section(request.form["taskId"], tasksSections), request.form["flag"])
+      dbase.gainPoints(session['userLogged'], points)
+
+    dbase.sendFlag(dbase.setFlag(dbase.getUser(session['userLogged'])[0]['trueFlags'], request.form["taskId"]), session['userLogged'])
+    
+    return render_template("main.html", user = session['userLogged'], leaders = dbase.getLeaders(), yourPoints = dbase.getYourPoints(session['userLogged']), tasksWeb = dbase.getTasks("TasksWeb"), trueFlags = dbase.getUser(session['userLogged']))
   else:
     if 'userLogged' in session:
       return redirect(url_for("main", user = session['userLogged']))
   
 
-@app.route("/taskWeb/<number>")
+@app.route("/TasksWeb/<number>")
 def taskWeb(number):
   return render_template(f"/tasks/web/{number}/{number}.html")
 
