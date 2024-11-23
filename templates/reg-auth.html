@@ -16,6 +16,17 @@
         <form class="reg_auth_form" action="/registration" method="post">
             <input type="text" name="name" placeholder="Как к вам обращаться?" type="text" class="name">
             <input type="password" name="password" placeholder="Пароль" type="text" class="password">
+            <div class="team_choice">
+                <div class="team1">
+                    <input value="CTF-отдел" name="team" type="radio" class="team">
+                    <label>CTF-отдел</label>
+                </div>
+                <div class="team2">
+                    <input value="ФМШ и Челики" name="team" type="radio" class="team">
+                    <label>ФМШ и Челики</label>
+                </div>
+            </div>
+            
             <button type="submit" class="submit">Зарегистрироваться</button>
         </form>
         <div class="form_switcher">

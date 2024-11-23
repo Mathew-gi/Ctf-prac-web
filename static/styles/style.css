@@ -39,6 +39,9 @@ input {
 .flash.error {
     color: red;
 }
+.team:checked {
+    background-color: #AAFF00;
+}
 
 /* main.html */
 .profile_greeting {
@@ -75,10 +78,106 @@ input {
     color: #CD4A1B;
 }
 .tasks_web_module {
-    color: #60CD9C;
+    color: #FFC1CC;
 }
 .lineWeb {
-    background-color: #60CD9C;
+    background-color: #FFC1CC;
+}
+
+#web:hover {
+    background-color: #785B60;
+}
+
+.tasks_crypto_module {
+    color: #AEEFF0;
+}
+.lineCrypto {
+    background-color: #AEEFF0;
+}
+
+#crypto:hover {
+    background-color: #577778;
+}
+
+.tasks_forensic_module {
+    color: #DCC7FF;
+}
+.lineForensic {
+    background-color: #DCC7FF;
+}
+
+#forensic:hover {
+    background-color: #675E78;
+}
+
+.tasks_reverse_module {
+    color: #CFFFE2;
+}
+.lineReverse {
+    background-color: #CFFFE2;
+}
+
+#reverse:hover {
+    background-color: #61786A;
+}
+
+.tasks_steganography_module {
+    color: #D8F5A2;
+}
+.lineSteganography {
+    background-color: #D8F5A2;
+}
+
+#steganography:hover {
+    background-color: #6A7850;
+}
+
+.tasks_ppc_module {
+    color: #FFFACD;
+}
+.linePPC {
+    background-color: #FFFACD;
+}
+
+#ppc:hover {
+    background-color: #787660;
+}
+
+.tasks_osint_module {
+    color: #E6E6FA;
+}
+.lineOSINT {
+    background-color: #E6E6FA;
+}
+
+.osint:hover {
+    background-color: #6F6F78;
+}
+
+.tasks_pwn_module {
+    color: #FFDAB9;
+}
+.linePWN {
+    background-color: #FFDAB9;
+}
+
+.pwn:hover {
+    background-color: #786657;
+}
+
+.tasks_misc_module {
+    color: #F5F5F5;
+}
+.lineMisc {
+    background-color: #F5F5F5;
+}
+
+.pwn:hover {
+    background-color: #787878;
+}
+
+.leaders_diagram {
+    background-color: #181818;
 }
 
 /* Main css */
@@ -176,6 +275,56 @@ form input::placeholder {
     display: none;
 }
 
+.team_choice {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 20vw;
+}
+ 
+.team_choice label {
+    color: white;
+    font-size: 1vw;
+    font-weight: 600;
+}
+.team_choice input {
+    background-color: #fff;
+}
+
+.team_choice div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.team {
+    appearance: none;
+    background-color: #AAFF00;
+    margin: 0 4px 0 0;
+    font: inherit;
+    color: currentColor;
+    width: 1.5vw;
+    height: 1.5vw;
+    border-radius: 50%;
+    transform: translateY(-0.075em);
+    display: grid;
+    place-content: center;
+}
+
+.team::before {
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    border-radius: 50%;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em white;
+    background-color: #fff;
+}
+
+.team:checked::before {
+    transform: scale(1);
+}    
 
 /* main.html */
 .container_main {
@@ -239,7 +388,7 @@ form input::placeholder {
 .tasks h2 {
     margin-left: 10px;
 }
-.tasks_web {
+.tasks_block {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 10px;
@@ -256,7 +405,6 @@ form input::placeholder {
     transition: 0.5s;
 }
 .task:hover {
-    background-color: #2C5F48;
     transition: 0.5s;
     cursor: pointer;
 }
@@ -267,25 +415,32 @@ form input::placeholder {
 .task_difficulty {
     font-size: 1vw;
 }
+.task_description {
+    text-align: center;
+    margin-left: 40px;
+    margin-right: 40px;
+}
 .tasks_web_module {
     margin-top: 40px;
 }
-.lineWeb {
+.tasks_module {
+    margin-top: 40px;
+}
+.line {
     width: 100%;
     height: 0.5vh;
 }
 .extended_task {
     position: absolute;
     right: 28vw;
-    /* left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%); */
+    transform: translate(0, -50%);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 30vw;
-    height: 40vh;
+    height: 50vh;
     border-radius: 4px;
     z-index: 3;
     transition: 0.5s;
@@ -340,4 +495,34 @@ form input::placeholder {
 }
 .nonExist {
     display: none;
+}
+#nonExist {
+    display: none;
+}
+
+.noOpacityDiagram {
+    position: absolute;
+    width: 70vw;
+    height: 60vh;
+    border: 4px solid white;
+    border-radius: 4px;
+    z-index: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: 0.5s;
+    opacity: 0;
+}
+
+.leaders_diagram {
+    position: absolute;
+    width: 70vw;
+    height: 60vh;
+    border: 4px solid white;
+    border-radius: 4px;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: 0.5s;
 }
