@@ -40,7 +40,12 @@ class Handler(socketserver.BaseRequestHandler):
                         self.request.sendall("Ошибка: недопустимые символы.\n".encode('utf-8'))
                         continue
 
-                    output_string += encoder(input_data) + ' '
+                    encoded_word = encoder(input_data)
+                    if "Ошибка" in encoded_word:
+                        self.request.sendall(f"{encoded_word}\n".encode('utf-8'))
+                        continue
+
+                    output_string += encoded_word + ' '
                     number_of_message += 1
 
                 self.request.sendall(f"Зашифрованное сообщение: {output_string.strip()}\n".encode('utf-8'))
@@ -54,19 +59,15 @@ class Handler(socketserver.BaseRequestHandler):
 
 def encoder(input_string):
     try:
-        ascii_input_string = [ord(symbol) for symbol in input_string]
-        print("ascii_input_string: " + ascii_input_string)
-        shift = max(ascii_input_string) if not(len(ascii_input_string) % 2) else sum(ascii_input_string) // 2
-        print("shift" + shift)
-        ascii_output_string = [element + shift for element in ascii_input_string]
-        print("ascii_output_string" + ascii_output_string)
-        output_string = ''.join(
-            [
-                chr(shift_ascii_symbol % 127) 
-                for shift_ascii_symbol in ascii_output_string
-            ]
-        )
-        return output_string
+        ascii_values = [ord(char) for char in input_string]
+        if len(ascii_values) % 2 == 0:
+            shift = min(ascii_values) // 2
+        else:
+            shift = max(ascii_values)
+
+        shifted_ascii = [(value + shift) % 127 for value in ascii_values]
+        encoded_string = ''.join(chr(value) for value in shifted_ascii)
+        return encoded_string
     except Exception as e:
         return f"Ошибка шифрования: {e}"
 
