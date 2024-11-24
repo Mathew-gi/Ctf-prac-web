@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Спасите лайм</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        var remainingTime = {{ remaining_time }};
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Лайм испортится через <span id="timer">{{ remaining_time }}</span> секунд.</h1>
+        <p>Как его спасти?</p>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
