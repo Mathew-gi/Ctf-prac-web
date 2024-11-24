@@ -37,49 +37,53 @@ def get_db():
     g.link_db = connect_db()
   return g.link_db
 
+allowed_chars = set("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя0123456789")
+def has_invalid_chars(s):
+    return not set(s).issubset(allowed_chars)
 
 @app.route('/', methods = ["POST", "GET"])
 @app.route('/registration', methods = ["POST", "GET"])
 def registration():
   db = get_db()
   dbase = FDataBase(db)
+  user_message = ""
   if request.method == "POST":
     if len(request.form["name"]) > 2:
       if dbase.checkIfUserExists(request.form["name"]):
-        flash("Username exists", category="error")
+        user_message = "Такой пользователь уже существует"
       else:
-        res = dbase.addUser(request.form["name"], request.form["password"], dbase.createTrueFlags(tasksSections), request.form["team"])
-        if not res:
-          flash("User registration error", category="error")
+        if request.form["password"] == "":
+          user_message = "Пароль не может быть пустым"
         else:
-          flash("User regged", category="success")
-          dbase.addUserPoints(request.form["name"])
-          return render_template("reg-auth.html", status = "Authorization")
+          if has_invalid_chars(request.form["password"]) or has_invalid_chars(request.form["name"]):
+            user_message = "Пароль или имя могут содержать только буквы и цифры"
+          res = dbase.addUser(request.form["name"], request.form["password"], dbase.createTrueFlags(tasksSections), request.form["team"])
+          if not res:
+            flash("User registration error", category="error")
+          else:
+            flash("User regged", category="success")
+            dbase.addUserPoints(request.form["name"])
+            return render_template("reg-auth.html", status = "Authorization", user_message = user_message)
+        
     else:
-      flash("malo bukv", category="error")
-  return render_template("reg-auth.html", status = "Registration")
+      user_message = "Имя должно быть длиннее двух символов"
+      flash("", category="error")
+  return render_template("reg-auth.html", status = "Registration", user_message = user_message)
 
 @app.route('/authorization', methods = ["POST", "GET"])
 def authorization():
   db = get_db()
   dbase = FDataBase(db)
     
-
+  user_message = ""
   if request.method == "POST":
-    if 'userLogged' in session and session['userLogged'] == request.form["name"]:
-      return redirect(url_for("main", user = session['userLogged']))
+    res = dbase.defineUser(request.form["name"], request.form["password"])
+    if not res:
+      user_message = "Пользователя не существует или введенные данные не верны"
+      return render_template("reg-auth.html", status = "Authorization", user_message = user_message)
     else:
-      if not dbase.checkIfUserExists(request.form["name"]):
-        flash("User does not exists", category="error")
-      else:
-        res = dbase.defineUser(request.form["name"], request.form["password"])
-        if not res:
-          flash("User logging error", category="error")
-        else:
-          flash("User logged", category="success")
-          session['userLogged'] = request.form["name"]
-          return redirect(url_for("main", user = session['userLogged']))
-        
+      return redirect(url_for("main", user = session['userLogged'], user_message = user_message))
+                 
   return render_template("reg-auth.html", status = "Authorization")
 
 @app.route("/main")
@@ -98,27 +102,58 @@ def main():
 
   
 
+
+
 @app.route("/TasksWeb/<number>")
 def taskWeb(number):
-  return render_template(f"/tasks/web/{number}/{number}.html")
+  if number in ["1"]:
+    return redirect('http://192.168.0.180:5001')
+  return render_template(f"/tasks/web/{number}/{number}.html") 
+
+@app.route("/TasksOSINT/<number>")
+def taskOSINT(number):
+  return render_template(f"/tasks/osint/{number}/{number}.html")
 
 @app.route("/TasksReverse/<number>")
 def taskReverse(number):
-  if number in ["1"]:
-    folder = f"/ctf_web/templates/tasks/reverse/{number}/"
+  if number in ["1", "2"]:
+    folder = f"/usr/src/app/templates/tasks/reverse/{number}/"
     files = os.listdir(folder)
     filename = files[0]
     return send_from_directory(folder, filename, as_attachment=True)
-  return render_template(f"/tasks/web/{number}/{number}.html")
+  return render_template(f"/tasks/reverse/{number}/{number}.html")
+
+@app.route("/TasksPPC/<number>")
+def taskPPC(number):
+  if number in ["1"]:
+    return redirect('http://192.168.0.180:3000')
+
+@app.route("/TasksForensic/<number>")
+def taskForensic(number):
+  if number in ["1"]:
+    folder = f"/ctf_web/templates/tasks/forensic/{number}/"
+    files = os.listdir(folder)
+    filename = files[0]
+    return send_from_directory(folder, filename, as_attachment=True)
+  return render_template(f"/tasks/forensic/{number}/{number}.html")
 
 @app.route("/TasksSteganography/<number>")
 def taskSteganography(number):
   if number in ["1"]:
-    folder = f"/ctf_web/templates/tasks/steganography/{number}/"
+    folder = f"/usr/src/app/templates/tasks/steganography/{number}/"
     files = os.listdir(folder)
     filename = files[0]
     return send_from_directory(folder, filename, as_attachment=True)
-  return render_template(f"/tasks/web/{number}/{number}.html")
+  return render_template(f"/tasks/steganography/{number}/{number}.html")
+
+@app.route("/TasksCrypto/<number>")
+def taskCrypto(number):
+  if number in ["1"]:
+    folder = f"/usr/src/app/templates/tasks/crypto/{number}/"
+    files = os.listdir(folder)
+    filename = files[0]
+    return send_from_directory(folder, filename, as_attachment=True)
+  return render_template(f"/tasks/crypto/{number}/{number}.html")
 
 @app.teardown_appcontext
 def close_db(error):
@@ -131,7 +166,7 @@ def handle_client_event(data):
 
     db = get_db()
     dbase = FDataBase(db)
-
+    user_message = ""
     if dbase.getSolution(data[0], dbase.get_section(data[1], tasksSections)):
       if not (dbase.checkTrueFlag(session['userLogged'], data[1])):
         taskPoints = 100 * dbase.getPointsMultiplier(dbase.get_section(data[1], tasksSections), data[0])
@@ -155,7 +190,8 @@ def handle_client_event(data):
       data = {
         'taskId': data[1],
         'isFlagValid': True,
-        'points': points
+        'points': points,
+        'user_message': user_message
       }
 
       dbase.addTeamSolution(team, dbase.getUser(session['userLogged'])[0]['trueFlags'])
@@ -163,11 +199,14 @@ def handle_client_event(data):
 
       emit('server_response', data)
     else:
+      print(data[1])
+      user_message = "Неправильно"
       points = dbase.getYourPoints(session['userLogged'])[0]['pointValue']
       data = {
         'taskId': data[1],
         'isFlagValid': False,
-        'points': points
+        'points': points,
+        'user_message': user_message
       }
       emit('server_response', data)
 

@@ -327,6 +327,12 @@ form input::placeholder {
     transform: scale(1);
 }    
 
+.user_message {
+    color: #C24C48FF;
+    transition: 0.5s;
+    margin-top: 5px;
+}
+
 /* main.html */
 .container_main {
     position: relative;
@@ -439,8 +445,8 @@ form input::placeholder {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 30vw;
-    height: 50vh;
+    width: 35vw;
+    height: 55vh;
     border-radius: 4px;
     z-index: 3;
     transition: 0.5s;

@@ -157,6 +157,11 @@ socket.on('server_response', (data) => {
         solvedTask.textContent = "1";
         profilePoints.lastElementChild.textContent = "Ваши очки: " + data['points'];
     }
+    else {
+        console.log(`.user_message${data['taskId'][4]}`);
+        var userMessage = document.querySelector(`.user_message${data['taskId'][4]}`);
+        userMessage.textContent = "Неверно";
+    }
 
     for (var i = 0; i < tasksWebExtendedParts.length; i++) {
         var editPoint = false;

@@ -42,6 +42,7 @@
                             <div class="extended_task_part_web">
                                 <div class="task_description">{{t['description']}}</div>
                                 <h3 class="task_link"><a href="">{{t['task']}}</a></h3>
+                                <h3 class="user_message user_message{{t['id']}}">{{user_message}}</h3>
                                 <input id="task{{t['id']}}Input" class="task_flag_input" name="flag" placeholder="Введите флаг" type="text">
                                 <button id="task{{t['id']}}" class="task_flag_submit">Проверить флаг</button>
                                 <div id="nonExist" class="task{{t['id']}}">{{trueFlags[0]["trueFlags"][t['id'] - 1]}}</div>
@@ -60,6 +61,7 @@
                             <div class="extended_task_part_web">
                                 <div class="task_description">{{t['description']}}</div>
                                 <h3 class="task_link"><a href="">{{t['task']}}</a></h3>
+                                <h3 class="user_message user_message{{t['id']}}">{{user_message}}</h3>
                                 <input id="task{{t['id'] + sections[0]}}Input" class="task_flag_input" name="flag" placeholder="Введите флаг" type="text">
                                 <button id="task{{t['id'] + sections[0]}}" class="task_flag_submit">Проверить флаг</button>
                                 <div id="nonExist" class="task{{t['id'] + sections[0]}}">{{trueFlags[0]["trueFlags"][t['id'] + sections[0] - 1]}}</div>
@@ -78,6 +80,7 @@
                             <div class="extended_task_part_web">
                                 <div class="task_description">{{t['description']}}</div>
                                 <h3 class="task_link"><a href="">{{t['task']}}</a></h3>
+                                <h3 class="user_message user_message{{t['id'] + sections[1]}}">{{user_message}}</h3>
                                 <input id="task{{t['id'] + sections[1]}}Input" class="task_flag_input" name="flag" placeholder="Введите флаг" type="text">
                                 <button id="task{{t['id'] + sections[1]}}" class="task_flag_submit">Проверить флаг</button>
                                 <div id="nonExist" class="task{{t['id'] + sections[1]}}">{{trueFlags[0]["trueFlags"][t['id'] + sections[1] - 1]}}</div>
@@ -96,6 +99,7 @@
                             <div class="extended_task_part_web">
                                 <div class="task_description">{{t['description']}}</div>
                                 <h3 class="task_link"><a href="">{{t['task']}}</a></h3>
+                                <h3 class="user_message user_message{{t['id'] + sections[2]}}">{{user_message}}</h3>
                                 <input id="task{{t['id'] + sections[2]}}Input" class="task_flag_input" name="flag" placeholder="Введите флаг" type="text">
                                 <button id="task{{t['id'] + sections[2]}}" class="task_flag_submit">Проверить флаг</button>
                                 <div id="nonExist" class="task{{t['id'] + sections[2]}}">{{trueFlags[0]["trueFlags"][t['id'] + sections[2] - 1]}}</div>
@@ -114,6 +118,7 @@
                             <div class="extended_task_part_web">
                                 <div class="task_description">{{t['description']}}</div>
                                 <h3 class="task_link"><a href="">{{t['task']}}</a></h3>
+                                <h3 class="user_message user_message{{t['id'] + sections[3]}}">{{user_message}}</h3>
                                 <input id="task{{t['id'] + sections[3]}}Input" class="task_flag_input" name="flag" placeholder="Введите флаг" type="text">
                                 <button id="task{{t['id'] + sections[3]}}" class="task_flag_submit">Проверить флаг</button>
                                 <div id="nonExist" class="task{{t['id'] + sections[3]}}">{{trueFlags[0]["trueFlags"][t['id'] + sections[3] - 1]}}</div>
@@ -132,6 +137,7 @@
                             <div class="extended_task_part_web">
                                 <div class="task_description">{{t['description']}}</div>
                                 <h3 class="task_link"><a href="">{{t['task']}}</a></h3>
+                                <h3 class="user_message user_message{{t['id'] + sections[4]}}">{{user_message}}</h3>
                                 <input id="task{{t['id'] + sections[4]}}Input" class="task_flag_input" name="flag" placeholder="Введите флаг" type="text">
                                 <button id="task{{t['id'] + sections[4]}}" class="task_flag_submit">Проверить флаг</button>
                                 <div id="nonExist" class="task{{t['id'] + sections[4]}}">{{trueFlags[0]["trueFlags"][t['id'] + sections[4] - 1]}}</div>
@@ -150,6 +156,7 @@
                             <div class="extended_task_part_web">
                                 <div class="task_description">{{t['description']}}</div>
                                 <h3 class="task_link"><a href="">{{t['task']}}</a></h3>
+                                <h3 class="user_message user_message{{t['id'] + sections[5]}}">{{user_message}}</h3>
                                 <input id="task{{t['id'] + sections[5]}}Input" class="task_flag_input" name="flag" placeholder="Введите флаг" type="text">
                                 <button id="task{{t['id'] + sections[5]}}" class="task_flag_submit">Проверить флаг</button>
                                 <div id="nonExist" class="task{{t['id'] + sections[5]}}">{{trueFlags[0]["trueFlags"][t['id'] + sections[5] - 1]}}</div>
@@ -168,6 +175,7 @@
                             <div class="extended_task_part_web">
                                 <div class="task_description">{{t['description']}}</div>
                                 <h3 class="task_link"><a href="">{{t['task']}}</a></h3>
+                                <h3 class="user_message user_message{{t['id'] + sections[6]}}">{{user_message}}</h3>
                                 <input id="task{{t['id'] + sections[6]}}Input" class="task_flag_input" name="flag" placeholder="Введите флаг" type="text">
                                 <button id="task{{t['id'] + sections[6]}}" class="task_flag_submit">Проверить флаг</button>
                                 <div id="nonExist" class="task{{t['id'] + sections[6]}}">{{trueFlags[0]["trueFlags"][t['id'] + sections[6] - 1]}}</div>
