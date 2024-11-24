@@ -37,6 +37,7 @@ def get_db():
     g.link_db = connect_db()
   return g.link_db
 
+
 @app.route('/', methods = ["POST", "GET"])
 @app.route('/registration', methods = ["POST", "GET"])
 def registration():
@@ -47,7 +48,7 @@ def registration():
       if dbase.checkIfUserExists(request.form["name"]):
         flash("Username exists", category="error")
       else:
-        res = dbase.addUser(request.form["name"], request.form["password"], dbase.createTrueFlags(request.form["name"],  tasksSections), request.form["team"])
+        res = dbase.addUser(request.form["name"], request.form["password"], dbase.createTrueFlags(tasksSections), request.form["team"])
         if not res:
           flash("User registration error", category="error")
         else:
@@ -81,21 +82,20 @@ def authorization():
         
   return render_template("reg-auth.html", status = "Authorization")
 
-@app.route("/main/<user>")
-def main(user):
+@app.route("/main")
+def main():
   db = get_db()
   dbase = FDataBase(db)
   if 'userLogged' in session:
+    print(1)
+    print(dbase.getUser(session['userLogged'])[0]['team'])
+    print(dbase.getTeam(dbase.getUser(session['userLogged'])[0]['team'])[0]['trueFlags'])
     if len(dbase.getLeaders()) < 3:
       leaders = dbase.getLeaders()
     else:
       leaders = [dbase.getLeaders()[0], dbase.getLeaders()[1], dbase.getLeaders()[2]]
-    return render_template("main.html", user = user, leaders = leaders, yourPoints = dbase.getYourPoints(user), tasksWeb = dbase.getTasks("TasksWeb"), tasksCrypto = dbase.getTasks("TasksCrypto"), tasksForensic = dbase.getTasks("TasksForensic"), tasksReverse = dbase.getTasks("TasksReverse"), tasksSteganography = dbase.getTasks("TasksSteganography"), tasksPPC = dbase.getTasks("TasksPPC"), tasksOSINT = dbase.getTasks("TasksOSINT"), tasksPWN = dbase.getTasks("TasksPWN"), sections = dbase.getSectionsLen(tasksSections), trueFlags = dbase.getUser(session['userLogged']))
+    return render_template("main.html", user = session['userLogged'], leaders = leaders, yourPoints = dbase.getYourPoints(session['userLogged']), tasksWeb = dbase.getTasks("TasksWeb"), tasksCrypto = dbase.getTasks("TasksCrypto"), tasksForensic = dbase.getTasks("TasksForensic"), tasksReverse = dbase.getTasks("TasksReverse"), tasksSteganography = dbase.getTasks("TasksSteganography"), tasksPPC = dbase.getTasks("TasksPPC"), tasksOSINT = dbase.getTasks("TasksOSINT"), tasksPWN = dbase.getTasks("TasksPWN"), sections = dbase.getSectionsLen(tasksSections), trueFlags = dbase.getTeam(dbase.getUser(session['userLogged'])[0]['team']))
 
-@app.route("/main", methods = ["GET"])
-def mainWithoutName():
-  if 'userLogged' in session:
-    return redirect(url_for("main", user = session['userLogged']))
   
 
 @app.route("/TasksWeb/<number>")

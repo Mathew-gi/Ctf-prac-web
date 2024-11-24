@@ -41,7 +41,7 @@ class FDataBase:
             return False
         return True
 
-    def createTrueFlags(self, name, tasksSections):
+    def createTrueFlags(self, tasksSections):
         tasksCount = 0
 
         for section in tasksSections:
@@ -57,6 +57,16 @@ class FDataBase:
 
         flags = "0" * tasksCount   
         return flags
+    
+    def setTeamsTrueFlags(self, trueFlags):
+        sql = f'''UPDATE Teams SET trueFlags = {trueFlags};'''
+        try:
+            self.__cur.execute(sql)
+            self.__db.commit()
+        except sqlite3.Error as e:
+            print("DB2 error" + str(e))
+            return False
+        return True
 
     def __init__(self, db):
         self.__db = db
@@ -153,6 +163,17 @@ class FDataBase:
             print("Database error")
         return []
     
+    def getTeam(self, team):
+        sql = f'''SELECT * FROM Teams WHERE title = '{team}';'''
+        print(sql)
+        try:
+            self.__cur.execute(sql)
+            res = self.__cur.fetchall()
+            if res: return res
+        except:
+            print("Database error")
+        return []
+    
     def getOtherTeam(self, title):
         sql = f'''SELECT * FROM Teams WHERE title != '{title}';'''
         try:
@@ -184,7 +205,7 @@ class FDataBase:
         return True
     
     def addTeamSolution(self, team, trueFlags):
-        sql = f'''UPDATE Users SET trueFlags = '{trueFlags}' WHERE team = '{team}';'''
+        sql = f'''UPDATE Teams SET trueFlags = '{trueFlags}' WHERE title = '{team}';'''
         print(sql)
         try:
             self.__cur.execute(sql)

@@ -15,7 +15,10 @@ var leadersDiaogram = document.getElementById("leaders_diagram");
 var profilePoints = document.querySelector(".profile_points");
 
 
-
+var scrollDistance = 0;
+window.onscroll = function(e) {
+  scrollDistance = window.scrollY;
+};
 
 let ctx = document.querySelector(".leadersCanvas");
 let lineChart = new Chart(ctx, {
@@ -95,6 +98,9 @@ function taskClick() {
     }
     else {
         this.className = "extended_task";
+        console.log(`top: calc(50vh + ${scrollDistance});`);
+        this.style = `top: calc(50vh + ${scrollDistance}px);`;
+        document.body.style = "overflow-y: hidden;"
         blurScreen.style = "z-index: 2; opacity: 0.7;";
         this.lastElementChild.style = "display: flex;";
         blurScreen.addEventListener("click", () => {blurClickTask(this)});
@@ -105,6 +111,7 @@ function taskClick() {
 }
 function blurClickTask(task) {
     task.className = "task";
+    document.body.style = "overflow-y: scroll;"
     task.lastElementChild.style = "display: none";
     blurScreen.style = "z-index: 0; opacity: 0;"
     blurOn = false;

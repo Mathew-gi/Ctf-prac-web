@@ -15,7 +15,8 @@ CREATE TABLE IF NOT EXISTS Points (
 CREATE TABLE IF NOT EXISTS Teams (
     id integer PRIMARY KEY AUTOINCREMENT,
     title text NOT NULL,
-    pointValue integer NOT NULL
+    pointValue integer NOT NULL,
+    trueFlags text NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS TasksWeb (
