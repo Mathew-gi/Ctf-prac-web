@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Huila.com</title>
+    <title>Lime CTF</title>
     <link rel="stylesheet" href="/static/styles/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,6 +13,7 @@
     <div class="status">{{status}}</div>
     <div class="container">
         <div class="greeting"><h1>Добро пожаловать!</h1><h3 class="greeting_h3">введите данные для регистрации</h3></div>
+        <h3 class="user_message">{{user_message}}</h3>
         <form class="reg_auth_form" action="/registration" method="post">
             <input type="text" name="name" placeholder="Как к вам обращаться?" type="text" class="name">
             <input type="password" name="password" placeholder="Пароль" type="text" class="password">

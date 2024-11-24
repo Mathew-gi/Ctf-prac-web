@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>CTF Задание - PPC</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Подключение socket.io -->
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <div id="container">
+        <div id="top">Оставшиеся клики: <span id="clicksRemaining"></span></div>
+        <div id="game-area">
+            <div id="left" class="button-area inactive">Левая кнопка</div>
+            <div id="right" class="button-area inactive">Правая кнопка</div>
+        </div>
+        <div id="bottom">Оставшееся время: <span id="timer"></span> секунд</div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

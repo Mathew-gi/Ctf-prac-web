@@ -6,6 +6,7 @@
 /* Color themes */
 /* reg-auth.html */
 body {
+    height: 200vh;
     background-color: #121212;
     
 }
@@ -326,11 +327,17 @@ form input::placeholder {
     transform: scale(1);
 }    
 
+.user_message {
+    color: #C24C48FF;
+    transition: 0.5s;
+    margin-top: 5px;
+}
+
 /* main.html */
 .container_main {
     position: relative;
     width: 85%;
-    height: 100%;
+    height: 200vh;
     margin: 0 auto;
 }
 .header {
@@ -433,14 +440,13 @@ form input::placeholder {
 .extended_task {
     position: absolute;
     right: 28vw;
-    top: 50%;
     transform: translate(0, -50%);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 30vw;
-    height: 50vh;
+    width: 35vw;
+    height: 55vh;
     border-radius: 4px;
     z-index: 3;
     transition: 0.5s;
@@ -448,7 +454,7 @@ form input::placeholder {
 .blur {
     position: absolute;
     width: 100%;
-    height: 100%;
+    height: 200vh;
     background-color: black;
     opacity: 0;
     z-index: 0;

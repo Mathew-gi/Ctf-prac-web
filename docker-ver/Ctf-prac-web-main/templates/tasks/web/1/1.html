@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click Counter CTF</title>
+    <link rel="stylesheet" href="/static/styles/web/1.css">
+</head>
+<body>
+
+<div class="container">
+    <h2>Click Counter</h2>
+    <p>Нажмите на кнопку 10,000 раз, чтобы получить флаг!</p>
+    <button id="click-button" class="button" onclick="incrementClick()">Нажать</button>
+    <div class="counter" id="click-counter">Клики: 0</div>
+    <div class="message" id="timer-message"></div>
+    <div class="flag" id="flag-message" style="display: none;">Поздравляем! Флаг: CTF{you_did_it}</div>
+</div>
+
+<script src="/static/scripts/web/1.js"></script>
+</body>
+</html>
