@@ -13,7 +13,7 @@ const server = http.createServer(app);
 const io = socketIo(server);
 
 // Флаг хранится на сервере
-const FLAG = 'CTF{you_clicked_fast_enough}';
+const FLAG = 'limeCTF{you_clicked_fast_enough}';
 
 // Middleware для обработки JSON
 app.use(express.json());

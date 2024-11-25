@@ -52,6 +52,8 @@ class Handler(socketserver.BaseRequestHandler):
 
                 if output_string.strip() == "I was exposed":
                     self.request.sendall("Поздравляем! Вы отправили сообщение штабу, теперь Вас вытащат из этой передряги.\nВот флаг: limeCTF{1t_15_hard_t0_b3_a_5py}\n".encode('utf-8'))
+                if output_string.strip() == "escape" or output_string.strip() == "Escape":
+                    self.request.sendall("Даже штаб не понадобился - вы заслужили пасхалку: agent_007\n".encode('utf-8'))
             except ValueError:
                 self.request.sendall("Ошибка: введите корректное число.\n".encode('utf-8'))
             except Exception as e:
