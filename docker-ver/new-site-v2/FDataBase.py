@@ -263,10 +263,10 @@ class FDataBase:
             res = self.__cur.fetchall()
             if res:
                 if  res[0]['difficulty'] == "easy":
-                    return 1
+                    return 5
                 elif res[0]['difficulty'] == "medium":
                     return 2
                 elif res[0]['difficulty'] == "hard":
-                    return 3
+                    return 10
         except:
             print("Database error mult")

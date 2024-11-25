@@ -141,7 +141,7 @@ def taskForensic(number):
 
 @app.route("/TasksSteganography/<number>")
 def taskSteganography(number):
-  if number in ["1"]:
+  if number in ["1", "2"]:
     folder = f"/usr/src/app/templates/tasks/steganography/{number}/"
     files = os.listdir(folder)
     filename = files[0]
