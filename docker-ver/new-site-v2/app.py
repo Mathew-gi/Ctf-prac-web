@@ -8,7 +8,7 @@ DATABASE = 'app.db'
 DEBUG = True
 SECRET_KEY = "1234"
 
-tasksSections = ["TasksWeb", "TasksCrypto", "TasksForensic", "TasksReverse", "TasksSteganography", "TasksPPC", "TasksOSINT", "tasksPWN"]
+tasksSections = ["TasksWeb", "TasksCrypto", "TasksForensic", "TasksReverse", "TasksSteganography", "TasksPPC", "TasksOSINT"]
 graphicsSave = [] 
 
 app = Flask(__name__)
@@ -53,7 +53,6 @@ def registration():
         user_message = "Такой пользователь уже существует"
       else:
         if request.form["password"] == "":
-          print("not null")
           user_message = "Пароль не может быть пустым"
         else:
           if has_invalid_chars(request.form["password"]) or has_invalid_chars(request.form["name"]):
@@ -83,6 +82,7 @@ def authorization():
       user_message = "Пользователя не существует или введенные данные не верны"
       return render_template("reg-auth.html", status = "Authorization", user_message = user_message)
     else:
+      session['userLogged'] = request.form["name"]
       return redirect(url_for("main", user = session['userLogged'], user_message = user_message))
                  
   return render_template("reg-auth.html", status = "Authorization")
@@ -99,16 +99,21 @@ def main():
       leaders = dbase.getLeaders()
     else:
       leaders = [dbase.getLeaders()[0], dbase.getLeaders()[1], dbase.getLeaders()[2]]
-    return render_template("main.html", user = session['userLogged'], leaders = leaders, yourPoints = dbase.getYourPoints(session['userLogged']), tasksWeb = dbase.getTasks("TasksWeb"), tasksCrypto = dbase.getTasks("TasksCrypto"), tasksForensic = dbase.getTasks("TasksForensic"), tasksReverse = dbase.getTasks("TasksReverse"), tasksSteganography = dbase.getTasks("TasksSteganography"), tasksPPC = dbase.getTasks("TasksPPC"), tasksOSINT = dbase.getTasks("TasksOSINT"), tasksPWN = dbase.getTasks("TasksPWN"), sections = dbase.getSectionsLen(tasksSections), trueFlags = dbase.getTeam(dbase.getUser(session['userLogged'])[0]['team']))
+    return render_template("main.html", user = session['userLogged'], leaders = leaders, yourPoints = dbase.getYourPoints(session['userLogged']), tasksWeb = dbase.getTasks("TasksWeb"), tasksCrypto = dbase.getTasks("TasksCrypto"), tasksForensic = dbase.getTasks("TasksForensic"), tasksReverse = dbase.getTasks("TasksReverse"), tasksSteganography = dbase.getTasks("TasksSteganography"), tasksPPC = dbase.getTasks("TasksPPC"), tasksOSINT = dbase.getTasks("TasksOSINT"), sections = dbase.getSectionsLen(tasksSections), trueFlags = dbase.getTeam(dbase.getUser(session['userLogged'])[0]['team']))
 
 @app.route("/TasksWeb/<number>")
 def taskWeb(number):
   if number in ["1"]:
-    return redirect('http://192.168.0.180:5001')
+    return redirect('http://90.156.156.157:5001')
   return render_template(f"/tasks/web/{number}/{number}.html") 
 
 @app.route("/TasksOSINT/<number>")
 def taskOSINT(number):
+  if number in ["2"]:
+    folder = f"/usr/src/app/templates/tasks/osint/{number}/"
+    files = os.listdir(folder)
+    filename = files[0]
+    return send_from_directory(folder, filename, as_attachment=True)
   return render_template(f"/tasks/osint/{number}/{number}.html")
 
 @app.route("/TasksReverse/<number>")
@@ -123,11 +128,11 @@ def taskReverse(number):
 @app.route("/TasksPPC/<number>")
 def taskPPC(number):
   if number in ["1"]:
-    return redirect('http://192.168.0.180:3000')
+    return redirect('http://90.156.156.157:3000')
 
 @app.route("/TasksForensic/<number>")
 def taskForensic(number):
-  if number in ["1"]:
+  if number in ["1", "2"]:
     folder = f"/usr/src/app/templates/tasks/forensic/{number}/"
     files = os.listdir(folder)
     filename = files[0]

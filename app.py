@@ -57,13 +57,14 @@ def registration():
         else:
           if has_invalid_chars(request.form["password"]) or has_invalid_chars(request.form["name"]):
             user_message = "Пароль или имя могут содержать только буквы и цифры"
-          res = dbase.addUser(request.form["name"], request.form["password"], dbase.createTrueFlags(tasksSections), request.form["team"])
-          if not res:
-            flash("User registration error", category="error")
           else:
-            flash("User regged", category="success")
-            dbase.addUserPoints(request.form["name"])
-            return render_template("reg-auth.html", status = "Authorization", user_message = user_message)
+              res = dbase.addUser(request.form["name"], request.form["password"], dbase.createTrueFlags(tasksSections), request.form["team"])
+              if not res:
+                flash("User registration error", category="error")
+              else:
+                flash("User regged", category="success")
+                dbase.addUserPoints(request.form["name"])
+                return render_template("reg-auth.html", status = "Authorization", user_message = user_message)
         
     else:
       user_message = "Имя должно быть длиннее двух символов"
@@ -82,6 +83,7 @@ def authorization():
       user_message = "Пользователя не существует или введенные данные не верны"
       return render_template("reg-auth.html", status = "Authorization", user_message = user_message)
     else:
+      session['userLogged'] = request.form["name"]
       return redirect(url_for("main", user = session['userLogged'], user_message = user_message))
                  
   return render_template("reg-auth.html", status = "Authorization")

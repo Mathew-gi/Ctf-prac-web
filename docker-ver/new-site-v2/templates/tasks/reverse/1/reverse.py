@@ -55,10 +55,15 @@ def vm(bytecode, user_input):
 def encrypt_bytecode(bytecode, key):
     return [b ^ key for b in bytecode]
 
+def encrypt_bytecode(bytecode, key):
+    return [b ^ key for b in bytecode]
+
 original_bytecode = [
     0x03, 6,
     0x61, 0x63, 0x63, 0x65, 0x73, 0x73,
-    0x01, 99, 0x01, 116, 0x01, 102, 0x01, 123,
+    0x01, 108, 0x01, 105, 0x01, 109, 0x01, 101,
+    0x05, 4,
+    0x01, 67, 0x01, 84, 0x01, 70, 0x01, 123,
     0x05, 4,
     0x01, 118, 0x01, 109, 0x01, 95, 0x01, 112,
     0x05, 4,
@@ -79,3 +84,4 @@ encrypted_bytecode = encrypt_bytecode(original_bytecode, key)
 print("Input the secret key to unlock the flag:")
 user_input = input()
 vm(encrypted_bytecode, user_input)
+

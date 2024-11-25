@@ -33,16 +33,19 @@ services:
     depends_on:
       - flask
       - flask_site2  # Добавляем зависимость от нового сайта
-    
-  # ftp:
-  #   build:
-  #     context: ./templates/tasks/ppc/2
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "21:21"
-  #     - "30000-30010:30000-30010"
-  #   volumes:
-  #     - ftp_data:/home/ftpuser/ftp_root
+
+  ftp_server:  # Новый FTP-сервер
+    build:
+      context: ./templates/tasks/ppc/2  # Укажите директорию, где находится Dockerfile для FTP
+      dockerfile: Dockerfile
+    ports:
+      - "21:21"  # FTP порт
+      - "30000-30010:30000-30010"  # Пассивные порты
+    volumes:
+      - ftp_data:/home/ftpuser/ftp_root  # Монтируем данные FTP
+    environment:
+      - FTP_USER=ftpuser
+      - FTP_PASSWORD=ftpuser
 
   node:
     build:
@@ -56,6 +59,15 @@ services:
       NODE_ENV: production
     depends_on:
       - nginx
+
+  socket_server:  # Сервис шифратора сообщений
+    build:
+      context: ./templates/tasks/crypto/2  # Директория с Dockerfile шифратора
+      dockerfile: Dockerfile
+    ports:
+      - "11111:11111"  # Прокси на порт 11111
+    environment:
+      FLAG: "limeCTF{1t_15_hard_t0_b3_a_5py}"  # Переменная окружения
 
 volumes:
   ftp_data:

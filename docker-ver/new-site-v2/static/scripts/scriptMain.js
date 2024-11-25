@@ -35,7 +35,7 @@ let lineChart = new Chart(ctx, {
                     lineTension: 0.4
                 },
                 {
-                    label: "ФМШ и Челики",
+                    label: "ФМШ и Перваки",
                     data: [],
                     backgroundColor: ['#121212'],
                     borderColor: ['#00AAFFFF'],
@@ -222,7 +222,7 @@ socket.on('gainTeamPoints', (data) => {
     lineChart.data.labels.push(time);
 
 
-    if (data['title'] == "ФМШ и Челики") {
+    if (data['title'] == "ФМШ и Перваки") {
         lineChart.data.datasets[1].data.push(data['points']);
         lineChart.data.datasets[0].data.push(data['otherTeamPoints']);
     }
