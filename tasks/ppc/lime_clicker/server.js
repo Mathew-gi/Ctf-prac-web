@@ -65,7 +65,7 @@ app.post('/api/click', (req, res) => {
     const timeElapsed = (Date.now() - session.startTime) / 1000;
 
     // Проверяем, что время не истекло
-    if (timeElapsed > 60) {
+    if (timeElapsed > 80) {
         delete sessions[sessionId];
         return res.json({ success: false, message: 'Время истекло' });
     }
@@ -74,7 +74,7 @@ app.post('/api/click', (req, res) => {
     const timeSinceLastClick = currentTime - session.lastClickTime;
 
     // Проверка минимального интервала между кликами - 25 мс
-    const MIN_CLICK_INTERVAL = 25; // в миллисекундах
+    const MIN_CLICK_INTERVAL = 10; // в миллисекундах
     if (timeSinceLastClick < MIN_CLICK_INTERVAL) {
         return res.json({ success: false, message: 'Слишком быстрые клики' });
     }
@@ -130,7 +130,7 @@ io.on('connection', (socket) => {
         }
 
         const timeElapsed = (Date.now() - session.startTime) / 1000;
-        if (timeElapsed > 60) {
+        if (timeElapsed > 80) {
             delete sessions[sessionId];
             socket.emit('errorMessage', 'Время истекло');
             return;
@@ -140,7 +140,7 @@ io.on('connection', (socket) => {
         const timeSinceLastClick = currentTime - session.lastClickTime;
 
         // Проверка минимального интервала между кликами (например, 100 мс)
-        const MIN_CLICK_INTERVAL = 100; // в миллисекундах
+        const MIN_CLICK_INTERVAL = 10; // в миллисекундах
         if (timeSinceLastClick < MIN_CLICK_INTERVAL) {
             socket.emit('errorMessage', 'Слишком быстрые клики');
             return;
@@ -187,7 +187,7 @@ app.post('/api/submit', (req, res) => {
     const timeElapsed = (Date.now() - session.startTime) / 1000;
 
     // Проверяем, что время не истекло
-    if (timeElapsed > 60) {
+    if (timeElapsed > 80) {
         delete sessions[sessionId];
         return res.json({ success: false, message: 'Время истекло' });
     }
@@ -207,14 +207,14 @@ function cleanExpiredSessions() {
     const now = Date.now();
     for (const [sessionId, session] of Object.entries(sessions)) {
         const timeElapsed = (now - session.startTime) / 1000;
-        if (timeElapsed > 60) {
+        if (timeElapsed > 80) {
             delete sessions[sessionId];
         }
     }
 }
 
 // Запуск очистки каждые 5 минут
-setInterval(cleanExpiredSessions, 5 * 60 * 1000);
+setInterval(cleanExpiredSessions, 80 * 1000);
 
 // Запуск сервера
 server.listen(port, () => {

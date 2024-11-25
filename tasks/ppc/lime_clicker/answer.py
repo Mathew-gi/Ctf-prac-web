@@ -1,39 +1,31 @@
 import requests
 import time
 
+# Настройка
 session = requests.Session()
+BASE_URL = 'http://90.156.156.157:3000'
 
-# Инициализация игры
-init_response = session.get('http://localhost:3000/api/init').json()
-session_id = init_response['sessionId']
-clicks_remaining = init_response['clicksRemaining']
+# Инициализация
+response = session.get(f'{BASE_URL}/api/init').json()
+session_id = response['sessionId']
+clicks_remaining = response['clicksRemaining']
 
 print(f"Начинаем игру. Осталось кликов: {clicks_remaining}")
 
-# Время начала
-start_time = time.time()
-
+# Цикл кликов
 while clicks_remaining > 0:
     # Отправляем запрос на клик
-    click_response = session.post('http://localhost:3000/api/click', json={'sessionId': session_id}).json()
+    response = session.post(f'{BASE_URL}/api/click', json={'sessionId': session_id}).json()
     
-    if not click_response['success']:
-        print(f"Ошибка: {click_response['message']}")
-        break
-
-    clicks_remaining = click_response.get('clicksRemaining', 0)
-    flag = click_response.get('flag')
-
+    clicks_remaining = response.get('clicksRemaining', 0)
+    flag = response.get('flag')
+    
     if flag:
         print(f"Получен флаг: {flag}")
         break
 
-    print(f"Осталось кликов: {clicks_remaining}")
-
-    # Задержка 25 мс
-    time.sleep(0.025)
-
-    # Проверка таймера
-    if time.time() - start_time > 30:
-        print("Время истекло")
-        break
+    # Задержка для соблюдения ограничения сервера
+    time.sleep(0.01)
+    
+    print(f"Начинаем игру. Осталось кликов: {clicks_remaining}")
+print("Игра завершена.")
