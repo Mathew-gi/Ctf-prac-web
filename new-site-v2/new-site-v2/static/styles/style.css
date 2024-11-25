@@ -1,0 +1,534 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+/* Color themes */
+/* reg-auth.html */
+body {
+    height: 200vh;
+    background-color: #121212;
+    
+}
+p {
+    color: #B0B0B0;
+}
+h1, h2, h3, h4, h5, h6 {
+    color: #FFFFFF;
+}
+.container {
+    background-color: #181818;
+}
+button {
+    background-color: #AAFF00;
+    color: #000;
+}
+input {
+    background-color: #fff;
+}
+
+.switch {
+    background-color: #fff;
+}
+
+.switch_indicator {
+    background-color: #AAFF00;
+}
+.flash.success {
+    color: #AAFF00;
+}
+.flash.error {
+    color: red;
+}
+.team:checked {
+    background-color: #AAFF00;
+}
+
+/* main.html */
+.profile_greeting {
+    background-color: #AAFF00;
+}
+.profile_points {
+    color: white;
+}
+.leaders_tab {
+    background-color: #AAFF00;
+}
+.container_main {
+    background-color: #181818;
+}
+.leaders_heading {
+    color: #181818;
+}
+.task {
+    background-color: #333333;
+    color: white;
+}
+.extended_task {
+    background-color: #333333;
+    color: white;
+    border: white, solid, 2px;
+}
+.easy {
+    color: #40B6CD;
+}
+.medium {
+    color: #CDBD32;
+}
+.hard {
+    color: #CD4A1B;
+}
+.tasks_web_module {
+    color: #FFC1CC;
+}
+.lineWeb {
+    background-color: #FFC1CC;
+}
+
+#web:hover {
+    background-color: #785B60;
+}
+
+.tasks_crypto_module {
+    color: #AEEFF0;
+}
+.lineCrypto {
+    background-color: #AEEFF0;
+}
+
+#crypto:hover {
+    background-color: #577778;
+}
+
+.tasks_forensic_module {
+    color: #DCC7FF;
+}
+.lineForensic {
+    background-color: #DCC7FF;
+}
+
+#forensic:hover {
+    background-color: #675E78;
+}
+
+.tasks_reverse_module {
+    color: #CFFFE2;
+}
+.lineReverse {
+    background-color: #CFFFE2;
+}
+
+#reverse:hover {
+    background-color: #61786A;
+}
+
+.tasks_steganography_module {
+    color: #D8F5A2;
+}
+.lineSteganography {
+    background-color: #D8F5A2;
+}
+
+#steganography:hover {
+    background-color: #6A7850;
+}
+
+.tasks_ppc_module {
+    color: #FFFACD;
+}
+.linePPC {
+    background-color: #FFFACD;
+}
+
+#ppc:hover {
+    background-color: #787660;
+}
+
+.tasks_osint_module {
+    color: #E6E6FA;
+}
+.lineOSINT {
+    background-color: #E6E6FA;
+}
+
+.osint:hover {
+    background-color: #6F6F78;
+}
+
+.tasks_pwn_module {
+    color: #FFDAB9;
+}
+.linePWN {
+    background-color: #FFDAB9;
+}
+
+.pwn:hover {
+    background-color: #786657;
+}
+
+.tasks_misc_module {
+    color: #F5F5F5;
+}
+.lineMisc {
+    background-color: #F5F5F5;
+}
+
+.pwn:hover {
+    background-color: #787878;
+}
+
+.leaders_diagram {
+    background-color: #181818;
+}
+
+/* Main css */
+/* reg-auth.html */
+body {
+    height: 100vh;
+    font-family: "Open Sans", sans-serif;
+    z-index: 1;
+}
+
+.container {
+    position: relative;
+    width: 85%;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 15px;
+}
+
+form input {
+    margin-bottom: 5px;
+    border-radius: 4px;
+    color: GREY;
+    text-align: center;
+}
+
+form input::placeholder {
+    text-align: center;
+}
+
+.submit {
+    border-radius: 5px;
+    height: 4vh;
+    margin-top: 5px;
+    width:20vw;
+    cursor: pointer;
+    text-align: center;
+    font-weight: 700;
+}
+
+.greeting {
+    text-align: center;
+    transition: 0.5s;
+}
+
+.name {
+    width: 35vw;
+    height: 2.5vh;
+}
+
+.password {
+    width: 30vw;
+    height: 2.5vh;
+}
+
+.form_switcher {
+    display: flex;
+    width: 35vw;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.switch {
+    width: 6vw;
+    height: 4vw;
+    border-radius: 10vw;
+    display: flex;
+    align-items: center;
+
+}
+
+.switch_indicator {
+    position: relative;
+    width: 48%;
+    height: 80%;
+    border-radius: 50%;
+    margin-left: 0.4vw;
+    transition: 0.5s;
+}
+
+
+
+.status {
+    display: none;
+}
+
+.team_choice {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 20vw;
+}
+ 
+.team_choice label {
+    color: white;
+    font-size: 1vw;
+    font-weight: 600;
+}
+.team_choice input {
+    background-color: #fff;
+}
+
+.team_choice div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.team {
+    appearance: none;
+    background-color: #AAFF00;
+    margin: 0 4px 0 0;
+    font: inherit;
+    color: currentColor;
+    width: 1.5vw;
+    height: 1.5vw;
+    border-radius: 50%;
+    transform: translateY(-0.075em);
+    display: grid;
+    place-content: center;
+}
+
+.team::before {
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    border-radius: 50%;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em white;
+    background-color: #fff;
+}
+
+.team:checked::before {
+    transform: scale(1);
+}    
+
+.user_message {
+    color: #C24C48FF;
+    transition: 0.5s;
+    margin-top: 5px;
+}
+
+/* main.html */
+.container_main {
+    position: relative;
+    width: 85%;
+    height: 200vh;
+    margin: 0 auto;
+}
+.header {
+    position: relative;
+    width: 100%;   
+}
+.profile_greeting {
+    position: relative;
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+    font-weight: 600;
+    font-size: 25px;
+    padding: 5px;
+    border-radius: 0 0 4px 4px;
+}
+.points_block {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+.leaders_tab {
+    width: 15vw;
+    height: 10vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    border-radius: 4px;
+    font-weight: 600;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.leaders_tab:hover {
+    background-color: #6BA000;
+    transition: 0.5s;
+}
+.leaders_tab:hover h4 {
+    color: white;
+}
+.leaders_heading {
+    margin-bottom: 5px;
+}
+.profile_points {
+    position: relative;
+    width: 20%;
+    margin-left: 10px;
+}
+.star {
+    width: 1vw;
+}
+
+.tasks h2 {
+    margin-left: 10px;
+}
+.tasks_block {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin: 10px;
+    margin-top: 20px;
+}
+.task {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 10vh;
+    border-radius: 4px;
+    transition: 0.5s;
+}
+.task:hover {
+    transition: 0.5s;
+    cursor: pointer;
+}
+.task_title {
+    font-size: 1.5vw;
+    font-weight: 600;
+}
+.task_difficulty {
+    font-size: 1vw;
+}
+.task_description {
+    text-align: center;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+.tasks_web_module {
+    margin-top: 40px;
+}
+.tasks_module {
+    margin-top: 40px;
+}
+.line {
+    width: 100%;
+    height: 0.5vh;
+}
+.extended_task {
+    position: absolute;
+    right: 28vw;
+    transform: translate(0, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 35vw;
+    height: 55vh;
+    border-radius: 4px;
+    z-index: 3;
+    transition: 0.5s;
+}
+.blur {
+    position: absolute;
+    width: 100%;
+    height: 200vh;
+    background-color: black;
+    opacity: 0;
+    z-index: 0;
+    transition: 0.5s;
+}
+
+.extended_task_part_web {
+    display: none;
+    margin-top: 50px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.task_flag_input {
+    border-radius: 4px;
+    width: 20vw;
+    height: 2vh;
+    margin-top: 20px;
+    text-align: center;
+}
+.task_flag_input::placeholder {
+    text-align: center;
+}
+.task_flag_submit {
+    border-radius: 4px;
+    width: 15vw;
+    height: 4vh;
+    margin-top: 10px;
+    font-size: 1vw;
+    font-weight: 600;
+}
+.task_link a:active,
+.task_link a:hover,
+.task_link a {
+    color: white;
+}
+
+.task_link {
+    margin-top: 20px;
+}
+.trueFlagMsg {
+    display: none;
+    color: #AAFF00;
+}
+.nonExist {
+    display: none;
+}
+#nonExist {
+    display: none;
+}
+
+.noOpacityDiagram {
+    position: absolute;
+    width: 70vw;
+    height: 60vh;
+    border: 4px solid white;
+    border-radius: 4px;
+    z-index: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: 0.5s;
+    opacity: 0;
+}
+
+.leaders_diagram {
+    position: absolute;
+    width: 70vw;
+    height: 60vh;
+    border: 4px solid white;
+    border-radius: 4px;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: 0.5s;
+}
